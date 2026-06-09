@@ -1,0 +1,51 @@
+.presetsGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(180px, 1fr)
+  );
+  gap: 1rem;
+}
+
+.presetCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1.25rem;
+  border-radius: 12px;
+
+  border: 2px solid #333;
+
+  background: #1e1e1e;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.presetCard:hover {
+  transform: translateY(-2px);
+}
+
+.selected {
+  border-color: #4ea1ff;
+}
+
+.presetIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.presetCard h3 {
+  margin: 0.25rem 0;
+}
+
+.presetCard p {
+  margin: 0;
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0.8;
+}
