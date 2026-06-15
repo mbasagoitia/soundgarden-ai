@@ -15,7 +15,7 @@ interface Preset {
 }
 
 interface PresetsSelectProps {
-  selectedPreset: PresetType;
+  selectedPreset: PresetType | null;
   onSelect: (preset: PresetType) => void;
 }
 
