@@ -1,46 +1,249 @@
-export const texturePresets = {
+import { type TextureProfile } from "../domain/TextureProfile";
+
+export const texturePresets: Record<string, TextureProfile> = {
   sunrise: {
     instruments: [
-      "piano",
-      "soft-pad",
+      {
+        id: "warm-pad",
+        name: "Warm Pad",
+        type: "pad",
+        volume: 0.6,
+        role: "texture",
+      },
+      {
+        id: "soft-piano",
+        name: "Soft Piano",
+        type: "piano",
+        volume: 0.8,
+        role: "harmony",
+      },
     ],
-    reverb: 0.6,
-    delay: 0.2,
   },
 
   storm: {
     instruments: [
-      "low-strings",
-      "drone",
+      {
+        id: "dark-drone",
+        name: "Dark Drone",
+        type: "drone",
+        volume: 0.8,
+        role: "texture",
+      },
+      {
+        id: "low-strings",
+        name: "Low Strings",
+        type: "strings",
+        volume: 0.7,
+        role: "harmony",
+      },
+      {
+        id: "storm-percussion",
+        name: "Storm Percussion",
+        type: "percussion",
+        volume: 0.6,
+        role: "rhythm",
+      },
     ],
-    reverb: 0.8,
-    delay: 0.1,
   },
 
   forest: {
     instruments: [
-      "flute",
-      "strings",
+      {
+        id: "wood-pad",
+        name: "Wood Pad",
+        type: "pad",
+        volume: 0.5,
+        role: "texture",
+      },
+      {
+        id: "acoustic-guitar",
+        name: "Acoustic Guitar",
+        type: "guitar",
+        volume: 0.7,
+        role: "harmony",
+      },
+      {
+        id: "woodwinds",
+        name: "Woodwinds",
+        type: "winds",
+        volume: 0.5,
+        role: "melody",
+      },
     ],
-    reverb: 0.5,
-    delay: 0.3,
   },
 
   space: {
     instruments: [
-      "synth-pad",
-      "drone",
+      {
+        id: "ambient-drone",
+        name: "Ambient Drone",
+        type: "drone",
+        volume: 0.7,
+        role: "texture",
+      },
+      {
+        id: "glass-pad",
+        name: "Glass Pad",
+        type: "pad",
+        volume: 0.5,
+        role: "texture",
+      },
     ],
-    reverb: 0.95,
-    delay: 0.4,
   },
 
   ocean: {
     instruments: [
-      "chimes",
-      "soft-pad",
+      {
+        id: "wave-pad",
+        name: "Wave Pad",
+        type: "pad",
+        volume: 0.6,
+        role: "texture",
+      },
+      {
+        id: "electric-piano",
+        name: "Electric Piano",
+        type: "piano",
+        volume: 0.5,
+        role: "harmony",
+      },
+      {
+        id: "soft-choir",
+        name: "Soft Choir",
+        type: "choir",
+        volume: 0.4,
+        role: "texture",
+      },
     ],
-    reverb: 0.7,
-    delay: 0.35,
+  },
+
+  twilight: {
+    instruments: [
+      {
+        id: "velvet-pad",
+        name: "Velvet Pad",
+        type: "pad",
+        volume: 0.6,
+        role: "texture",
+      },
+      {
+        id: "felt-piano",
+        name: "Felt Piano",
+        type: "piano",
+        volume: 0.7,
+        role: "harmony",
+      },
+      {
+        id: "soft-strings",
+        name: "Soft Strings",
+        type: "strings",
+        volume: 0.5,
+        role: "melody",
+      },
+    ],
+  },
+
+  dream: {
+    instruments: [
+      {
+        id: "dream-pad",
+        name: "Dream Pad",
+        type: "pad",
+        volume: 0.7,
+        role: "texture",
+      },
+      {
+        id: "music-box",
+        name: "Music Box",
+        type: "bells",
+        volume: 0.4,
+        role: "melody",
+      },
+      {
+        id: "soft-piano",
+        name: "Soft Piano",
+        type: "piano",
+        volume: 0.5,
+        role: "harmony",
+      },
+    ],
+  },
+
+  rain: {
+    instruments: [
+      {
+        id: "rain-pad",
+        name: "Rain Pad",
+        type: "pad",
+        volume: 0.5,
+        role: "texture",
+      },
+      {
+        id: "felt-piano",
+        name: "Felt Piano",
+        type: "piano",
+        volume: 0.6,
+        role: "harmony",
+      },
+      {
+        id: "soft-strings",
+        name: "Soft Strings",
+        type: "strings",
+        volume: 0.4,
+        role: "texture",
+      },
+    ],
+  },
+
+  night: {
+    instruments: [
+      {
+        id: "dark-pad",
+        name: "Dark Pad",
+        type: "pad",
+        volume: 0.6,
+        role: "texture",
+      },
+      {
+        id: "bass-drone",
+        name: "Bass Drone",
+        type: "drone",
+        volume: 0.5,
+        role: "texture",
+      },
+      {
+        id: "electric-piano",
+        name: "Electric Piano",
+        type: "piano",
+        volume: 0.5,
+        role: "harmony",
+      },
+    ],
+  },
+
+  meadow: {
+    instruments: [
+      {
+        id: "bright-pad",
+        name: "Bright Pad",
+        type: "pad",
+        volume: 0.5,
+        role: "texture",
+      },
+      {
+        id: "acoustic-guitar",
+        name: "Acoustic Guitar",
+        type: "guitar",
+        volume: 0.7,
+        role: "harmony",
+      },
+      {
+        id: "flute",
+        name: "Flute",
+        type: "winds",
+        volume: 0.4,
+        role: "melody",
+      },
+    ],
   },
 };
