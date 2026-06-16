@@ -4,6 +4,10 @@ SoundGarden AI is an ambient audiovisual generation system that transforms natur
 
 Rather than generating a fixed song, SoundGarden aims to create living soundscapes that continuously evolve while maintaining a coherent emotional identity.
 
+## Disclaimer
+
+SoundGarden is not a replacement for composers, musicians, or visual artists. Human creativity and AI-assisted music generation are distinct concepts with different purposes. SoundGarden aims to approximate the emotional intent of the user through sound and visuals, but may lack deep emotional complexity, historical context, and nuance. Use SoundGarden for focused work, ambience, entertainment, and curiosity. Continue to support artists, composers, and musicians whose work requires immense skill, commitment, and creativity that cannot be replicated by artificial intelligence.
+
 ## Vision
 
 Users describe a mood, memory, place, or experience in plain language:
@@ -40,13 +44,18 @@ MoodVector
 Scene Builder
       ↓
 Scene
+      ↓
+Composition Engine
+      ↓
+Composition
+      ↓
  ┌────┴────┐
  ↓         ↓
 Audio     Visual
 Renderer  Renderer
 ```
 
-The Scene serves as the central domain object that all generation and rendering systems operate on.
+The Scene serves as the central domain object that all generation and rendering systems operate on. Composition is a nondeterministic interpretation of a Scene.
 
 ---
 
