@@ -4,9 +4,9 @@
 
 SoundGarden is an AI-assisted ambient audiovisual system that transforms natural language prompts into continuously evolving musical and visual environments.
 
-Users describe a mood, memory, environment, experience, or idea in plain language. The system interprets the user's intent, constructs a semantic representation of the desired atmosphere, and generates a living audiovisual world that evolves over time.
+Users describe a mood, environment, experience, or idea in plain language. The system interprets the user's intent, constructs a semantic representation of the desired atmosphere, and generates a living audiovisual world that evolves over time.
 
-Unlike traditional music generators that produce a fixed song, SoundGarden generates a continuous soundscape that adapts, transforms, and develops while maintaining a coherent identity.
+Unlike traditional music generators that produce a fixed song, SoundGarden generates a continuous soundscape that adapts, transforms (naturally or based on user input), and develops while maintaining a coherent identity.
 
 The architecture follows a **Scene-Centric Design**.
 
@@ -54,7 +54,7 @@ instead of:
 
 ## Continuous Evolution
 
-SoundGarden should feel alive.
+SoundGarden should feel alive, reactive, and accurate to the desired mood.
 
 Generated content gradually evolves rather than abruptly restarting or producing unrelated material.
 
@@ -76,9 +76,9 @@ without affecting downstream systems.
 
 ## Hybrid Intelligence
 
-Use machine learning where learned creativity is valuable.
+Machine learning where randomness and creative generation is valuable
 
-Use procedural systems where deterministic control is desirable.
+Procedural systems are used where deterministic control is desirable.
 
 ---
 
@@ -133,16 +133,10 @@ The Scene is the primary domain object.
 ```typescript
 interface Scene {
   mood: MoodVector;
-
   harmony: HarmonyProfile;
-
   melody: MelodyProfile;
-
   texture: TextureProfile;
-
   visuals: VisualProfile;
-
-  evolution: EvolutionProfile;
 }
 ```
 
@@ -159,16 +153,13 @@ Global application state is managed through Zustand.
 ```typescript
 interface AppState {
   userInput: UserInput;
-
   currentMood: MoodVector;
-
   activeScene: Scene;
-
   playbackState: PlaybackState;
-
-  userPreferences: UserPreferences;
 }
 ```
+
+The Composition should not be kept in AppState because it is a long, evolving sequence rather than a static object. A unique Scene can generate a variety of Compositions, so Composition is not deterministic.
 
 The Scene acts as the primary source of truth.
 
@@ -226,7 +217,8 @@ Future possibilities:
 * Time of day
 * Weather
 * Location
-* Calendar events
+
+For example, "snowy morning in New York City" or "warm California sunset"
 
 ---
 
@@ -296,19 +288,12 @@ MoodVector
 ```typescript
 interface MoodVector {
   energy: number;
-
   brightness: number;
-
   density: number;
-
   warmth: number;
-
   tension: number;
-
   motion: number;
-
   openness: number;
-
   saturation: number;
 }
 ```
@@ -334,7 +319,7 @@ interface MoodVector {
 
 ## Purpose
 
-Convert MoodVector into a fully-defined Scene.
+Convert MoodVector into a well-defined Scene.
 
 The Scene Builder coordinates multiple generation services.
 
@@ -347,7 +332,6 @@ Harmony
 Melody
 Texture
 Visual
-Evolution
  Services
      ↓
    Scene
@@ -421,8 +405,6 @@ interface MelodyProfile {
 
   phraseLength: number;
 
-  variationRate: number;
-
   sparsity: number;
 
   melodicContour: string;
@@ -465,13 +447,9 @@ Generate atmosphere and orchestration.
 
 ```typescript
 interface TextureProfile {
+  // Each instrument will define what role it plays...melody, harmony, etc.
   instruments: InstrumentDefinition[];
-
-  ambientLayers: AmbientLayer[];
-
-  environmentalSounds: EnvironmentalSound[];
-
-  effectsProfile: EffectsProfile;
+  soundEffects: SoundEffect[];
 }
 ```
 
@@ -526,47 +504,66 @@ interface VisualProfile {
 
 ---
 
-# Evolution Service
+# Composition Layer
 
 ## Purpose
 
-Control long-term transformation.
+Translate musical, textural, and visual ideas described by the Scene into concrete musical directives.
 
-Evolution is considered part of the Scene itself.
+## Responsibilities
+
+* Variation scheduling
+* Chord progression ordering
+* Harmonic evolution
+* Melodic interpolation
+* Texture drift
+* Visual evolution
+* Transitions
+
+## Building Blocks
+
+The composition will be made up of a sequence of events in different layers: melody, harmony, and texture:
+
+```typescript
+interface HarmonyEvent {
+  chord: Chord;
+  startBeat: number;
+  // Number of beats, bars, etc....TBD
+  duration: number;
+  volume: number;
+}
+
+interface MelodyEvent {
+  // Note will describe a specific pitch/scale degree and duration
+  sequence: Note[];
+  // Duration of the entire sequence
+  duration: number;
+  startBeat: number;
+  volume: number;
+}
+
+interface TextureEvent {
+  soundEffect: SoundEffect;
+  duration: number;
+  startBeat: number;
+  volume: number;
+}
+```
 
 ---
 
 ## Output
 
 ```typescript
-interface EvolutionProfile {
-  regenerationInterval: number;
+interface Composition {
+  harmonyTimeline: HarmonyEvent[];
 
-  motifMutationRate: number;
+  // Stack 2+ melody events at a time for a polyphonic effect
+  melodyTimeline: MelodyEvent[];
 
-  harmonicChangeRate: number;
-
-  textureDriftRate: number;
-
-  visualDriftRate: number;
-
-  transitionStyle:
-    | "crossfade"
-    | "interpolate"
-    | "layered";
+  textureTimeline: TextureEvent[];
 }
 ```
-
----
-
-## Responsibilities
-
-* Variation scheduling
-* Harmonic evolution
-* Melodic interpolation
-* Texture drift
-* Visual drift
-* Transition management
 
 ---
 
@@ -574,17 +571,7 @@ interface EvolutionProfile {
 
 ## Purpose
 
-Render a Scene into sound.
-
----
-
-## Audio Renderer
-
-```typescript
-interface AudioRenderer {
-  render(scene: Scene): AudioGraph;
-}
-```
+Render a Composition into sound with Tone.js
 
 ---
 
