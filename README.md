@@ -45,6 +45,8 @@ Scene Builder
       ↓
 Scene
       ↓
+Rules
+      ↓
 Composition Engine
       ↓
 Composition
