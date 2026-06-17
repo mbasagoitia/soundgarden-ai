@@ -504,21 +504,47 @@ interface VisualProfile {
 
 ---
 
+# Rule Layer
+
+To translate the ideas of the Scene into musical directives that actually sound good, some music theory rules must be followed to create a cohesive relationship between harmony, melody, tempo, etc.
+
+Examples:
+
+- Voice leading
+- Chord tone preference and doubling rules
+- Motif repetition
+- Stepwise motion
+- Cadence type and importance
+- Harmonic motion
+- Modulation rules
+
+The Scene will determine the strength of application of each individual rule. Some rules will be strong in all cases--for example, preserve meter and motif identity. Others, such as strict voice leading and modulation rules, are Scene-dependent. A smooth, melodic Scene needs to cadence and modulate differently than a more cool, abstract scene.
+
+```typescript
+interface RuleProfile {
+  chordTonePreference: number;
+  stepwiseMotionPreference: number;
+  voiceLeadingImportance: number;
+  cadenceImportance: number;
+  motifRepetitionImportance: number;
+ // More rules TBD
+}
+```
+
+---
+
 # Composition Layer
 
 ## Purpose
 
-Translate musical, textural, and visual ideas described by the Scene into concrete musical directives.
+Translate musical, textural, and visual ideas described by the Scene and Rule layers into concrete musical directives. Think of this as creating a physical musical score with notes. New events are continuously generated until the user stops playback.
 
 ## Responsibilities
 
-* Variation scheduling
 * Chord progression ordering
 * Harmonic evolution
 * Melodic interpolation
-* Texture drift
-* Visual evolution
-* Transitions
+* Speed of transitions
 
 ## Building Blocks
 
@@ -527,6 +553,7 @@ The composition will be made up of a sequence of events in different layers: mel
 ```typescript
 interface HarmonyEvent {
   chord: Chord;
+  startBar: number;
   startBeat: number;
   // Number of beats, bars, etc....TBD
   duration: number;
@@ -538,6 +565,7 @@ interface MelodyEvent {
   sequence: Note[];
   // Duration of the entire sequence
   duration: number;
+  startBar: number;
   startBeat: number;
   volume: number;
 }
@@ -545,6 +573,7 @@ interface MelodyEvent {
 interface TextureEvent {
   soundEffect: SoundEffect;
   duration: number;
+  startBar: number;
   startBeat: number;
   volume: number;
 }
@@ -556,13 +585,16 @@ interface TextureEvent {
 
 ```typescript
 interface Composition {
-  harmonyTimeline: HarmonyEvent[];
-
+  harmonyTrack: HarmonyTrack;
   // Stack 2+ melody events at a time for a polyphonic effect
-  melodyTimeline: MelodyEvent[];
-
-  textureTimeline: TextureEvent[];
+  melodyTrack: MelodyTrack;
+  textureTrack: TextureTrack;
 }
+
+interface HarmonyTrack {
+  events: HarmonyEvent[];
+}
+// Also MelodyTrack and TextureTrack
 ```
 
 ---
@@ -833,6 +865,10 @@ User Intent
 MoodVector
       ↓
 Scene
+      ↓
+Rules
+      ↓
+Composition
       ↓
 Renderers
       ↓
