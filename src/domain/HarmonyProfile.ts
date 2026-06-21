@@ -1,5 +1,6 @@
 // import { type Mode } from "./Mode";
-
+import { type Chord } from "../composition/utilities/chordFormulas";
+import { type Key } from "../domain/composition/Key";
 /**
  * Future:
  * Harmony will be generated dynamically by a
@@ -18,9 +19,9 @@ Using:
  */
 
 export interface HarmonyProfile {
-  key: string;
+  key: Key;
   // mode: Mode;
-  // chordPalette: string[];
+  chordPalette: Chord[];
   // tensionLevel: number;
   // harmonicDensity: number;
   // harmonicRhythm: number;
