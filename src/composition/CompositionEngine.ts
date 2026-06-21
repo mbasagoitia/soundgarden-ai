@@ -13,6 +13,10 @@ export class CompositionEngine {
     }
 
     compose(scene: Scene): Composition {
+        if (!scene) {
+            throw new Error("No scene provided");
+        }
+
         const context = new CompositionContext(scene);
 
         this.harmonyComposer.compose(context);
