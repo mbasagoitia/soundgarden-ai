@@ -3,5 +3,5 @@
 export interface HarmonyEvent {
   chord: string[];
   startBeat: number;
-  duration: number;
+  durationBeats: number;
 }
