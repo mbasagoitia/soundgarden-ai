@@ -20,14 +20,14 @@ export class HarmonyComposer {
         // For now, just loop through the chord palette and create a HarmonyEvent for each chord
         const events: HarmonyEvent[] = [];
         const duration = 4; // 4 beats per chord for now
-
+        // console.log("chord palette", chordPalette);
         for (let i = 0; i < chordPalette.length; i++) {
             const chord = this.getChordMembers(key, chordPalette[i]);
             const startBeat = i * duration;
             events.push({
                 chord,
                 startBeat,
-                duration
+                durationBeats: duration
             });
         }
 
@@ -35,7 +35,9 @@ export class HarmonyComposer {
     }
 
     getChordMembers(key: Key, chord: Chord): Pitch[] {
+        // console.log("chord,", chord);
         const scale = SCALES[key];
+        //console.log("scale", scale);
         const { degree, seventh } = CHORD_FORMULAS[chord];
 
         const chordDegrees = seventh
