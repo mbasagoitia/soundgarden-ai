@@ -1,29 +1,26 @@
-export function compose(
-    scene: Scene
-): Composition {
+import { Composition } from "../domain/composition/Composition";
+import { type Scene } from "../domain/Scene";
+import { CompositionContext } from "../domain/composition/CompositionContext";
+import { HarmonyComposer } from "./composers/HarmonyComposer";
 
-    return {
-        // scene.harmony.chordPalette
+// Now, try to create and view a Composition from a preset, and then play it with Tone.js
 
-        // Next step is uncomment chordPalette in HarmonyProfile and the presets so we can use it
-        // Loop through the chord palette (for now in a predetermined order) and create a HarmonyEvent and eventually HarmonyTrack (maybe just repeat a few chord progressions)
-        // Then use Tone scheduler to play them
-        harmony: [
+export class CompositionEngine {
+    private harmonyComposer: HarmonyComposer;
 
-            {
-                chord: "Gmaj7",
-                startBar: 0,
-                durationBars: 4
-            },
+    constructor() {
+        this.harmonyComposer = new HarmonyComposer();
+    }
 
-            {
-                chord: "Em7",
-                startBar: 4,
-                durationBars: 4
-            }
+    compose(scene: Scene): Composition {
+        const context = new CompositionContext(scene);
 
-        ]
+        this.harmonyComposer.compose(context);
 
-    };
-
+        return new Composition({
+            harmonyTrack: context.harmonyTrack,
+            // melodyTrack: context.melodyTrack,
+            // textureTrack: context.textureTrack
+        });
+    }
 }
